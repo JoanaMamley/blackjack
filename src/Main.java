@@ -25,6 +25,7 @@ public class Main {
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
+
         }
 
         System.out.println(session.getWinner()+" has won the game, point: "+session.getWinner().getHandTotalPoints());

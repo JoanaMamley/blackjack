@@ -4,6 +4,8 @@ import enums.SessionState;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Session {
 
@@ -89,13 +91,23 @@ public class Session {
             return true;
         } else if ( this.players.stream().filter(player -> player.getState()==PlayerState.InPlay).count() < 2  ) {
             return true;
+        } else if ( this.players.stream().filter(player -> player.getState()==PlayerState.Ejected).count() == players.size()  ){
+            return true;
         }
         return false;
     }
 
     public Player getWinner(){
         return this.currentPlayer;
+//        return this.players.stream().filter(player -> player.getHandTotalPoints()==21).collect(Collectors.toList()).stream().findFirst();
+//                .findFirst()
+//        return this.currentPlayer;
+//        for ()
+//        return this.currentPlayer;
+//        return this.
 //        return this.players.stream().filter(player -> player.getHandTotalPoints()==21);
     }
+
+//    add deal card here
 
 }

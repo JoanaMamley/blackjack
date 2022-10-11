@@ -8,6 +8,8 @@ public class Deck {
 
     public Deck(){
         List<Card> cs = new ArrayList<>(52);
+
+//        use builder pattern to create cards
         for(Suit suit: Suit.values()){
             for (Value value: Value.values()){
                 cs.add(new Card(suit, value));

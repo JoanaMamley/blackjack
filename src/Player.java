@@ -32,6 +32,7 @@ public class Player {
         return this.state;
     }
 
+//    remove add card and deal from session
     public void addCardToHand(Card card){
         hand.add(card);
         if(this.getHandTotalPoints()>21){
@@ -47,4 +48,6 @@ public class Player {
     public String toString() {
         return this.name;
     }
+
+//    implement player strategies here
 }
