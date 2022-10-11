@@ -93,7 +93,7 @@ public class Session {
     
     public Optional<Player> checkWinner(){
         Optional<Player> player = Optional.ofNullable(null);
-        if(this.players.stream().filter(p -> p.getHandTotalPoints()==21).count() > 1 ){
+        if(this.players.stream().filter(p -> p.getHandTotalPoints()==21).count() >= 1 ){
             player = this.players.stream().filter(p -> p.getHandTotalPoints()==21).findFirst();
         } else if ( this.players.stream().filter(p -> p.getState()==PlayerState.InPlay).count() < 2  ){
             player = this.players.stream().filter(p -> p.getState()==PlayerState.InPlay).findFirst();
