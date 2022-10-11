@@ -14,6 +14,7 @@ public class Session {
     private SessionState state = SessionState.Started;
     private Iterator<Player> it;
     private Player currentPlayer;
+    Optional<Player> winner;
     private Deck deck;
 
     public Session(int playerCount){
@@ -78,34 +79,33 @@ public class Session {
             System.out.println("bust");
         }
 
-        if (!this.checkWinner()){
+        System.out.println("points: "+this.currentPlayer.getHandTotalPoints());
+
+        winner = this.checkWinner();
+
+        if (!winner.isPresent()){
             this.setCurrentPlayer();
         } else {
             this.setState(SessionState.Ended);
         }
 
     }
-
-    public boolean checkWinner(){
-        if(this.players.stream().filter(player -> player.getHandTotalPoints()==21).count() > 1 ){
-            return true;
-        } else if ( this.players.stream().filter(player -> player.getState()==PlayerState.InPlay).count() < 2  ) {
-            return true;
-        } else if ( this.players.stream().filter(player -> player.getState()==PlayerState.Ejected).count() == players.size()  ){
-            return true;
+    
+    public Optional<Player> checkWinner(){
+        Optional<Player> player = Optional.ofNullable(null);
+        if(this.players.stream().filter(p -> p.getHandTotalPoints()==21).count() > 1 ){
+            player = this.players.stream().filter(p -> p.getHandTotalPoints()==21).findFirst();
+        } else if ( this.players.stream().filter(p -> p.getState()==PlayerState.InPlay).count() < 2  ){
+            player = this.players.stream().filter(p -> p.getState()==PlayerState.InPlay).findFirst();
         }
-        return false;
+//        else if (this.players.stream().filter(p -> p.getState()==PlayerState.Ejected).count() == players.size()) {
+//            player = player;
+//        }
+        return player;
     }
 
     public Player getWinner(){
-        return this.currentPlayer;
-//        return this.players.stream().filter(player -> player.getHandTotalPoints()==21).collect(Collectors.toList()).stream().findFirst();
-//                .findFirst()
-//        return this.currentPlayer;
-//        for ()
-//        return this.currentPlayer;
-//        return this.
-//        return this.players.stream().filter(player -> player.getHandTotalPoints()==21);
+        return this.winner.get();
     }
 
 //    add deal card here
