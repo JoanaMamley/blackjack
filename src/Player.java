@@ -34,6 +34,9 @@ public class Player {
 
     public void addCardToHand(Card card){
         hand.add(card);
+        if(this.getHandTotalPoints()>21){
+            this.setState(PlayerState.Ejected);
+        }
     }
 
     public int getHandTotalPoints(){
